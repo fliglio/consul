@@ -9,18 +9,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase {
 		// given
 		$expected = new Address("foo1.fliglio.com", 8001);
 
-		$stubSrv = array(array(
-				'host'   => 'foo.service.consul',
-				'class'  => 'IN',
-				'ttl'    => 14382,
-				'type'   => 'SRV',
-				'pri'    => 1,
-				'weight' => 1,
-				'port'   => 8001,
-				'target' => 'foo1.fliglio.com',
-			));
-
-		$stubResolver = new StubResolver($stubSrv);
+		$stubResolver = StubResolver::createSingleResult();
 
 		// when
 		$lb = new ConsulLoadBalancer($stubResolver, "foo");

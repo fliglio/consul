@@ -1,18 +1,17 @@
 <?php
 namespace Benschw\Consul;
 
-
 class AddressProviderFactory {
-	
-	private $dns
+
+	private $dns;
 
 	public function __construct(DnsResolver $dns) {
 		$this->dns = $dns;
 	}
-	
-	public function getConsulAddressProvider($name) {
+
+	public function createConsulAddressProvider($name) {
 		$lb = new ConsulLoadBalancer($this->dns, $name);
-		return new ConsulAddressProvider($lb)
+		return new ConsulAddressProvider($lb);
 	}
 
 }
