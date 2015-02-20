@@ -1,6 +1,6 @@
 <?php
 
-namespace Benschw\Consul;
+namespace Fliglio\Consul;
 
 class StubResolver extends DnsResolver {
 	public $results;

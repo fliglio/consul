@@ -1,6 +1,6 @@
 <?php
 
-namespace Benschw\Consul;
+namespace Fliglio\Consul;
 
 use Fliglio\Web\Uri;
 

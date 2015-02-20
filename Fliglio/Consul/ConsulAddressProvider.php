@@ -1,5 +1,5 @@
 <?php
-namespace Benschw\Consul;
+namespace Fliglio\Consul;
 
 class ConsulAddressProvider implements AddressProvider {
 

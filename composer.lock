@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f01fa3930f849dfe6f8252c940c17507",
+    "hash": "fd5aa3eacfb198b9b346b9ca723bea37",
     "packages": [
         {
             "name": "fliglio/web",
@@ -12,16 +12,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/benschw/fliglio-web.git",
-                "reference": "ff6244cb584c3a1f72c52c804e02373ce420c9fe"
+                "reference": "151f61ade66a30903d155250c4e4ced268fae570"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/benschw/fliglio-web/zipball/ff6244cb584c3a1f72c52c804e02373ce420c9fe",
-                "reference": "ff6244cb584c3a1f72c52c804e02373ce420c9fe",
+                "url": "https://api.github.com/repos/benschw/fliglio-web/zipball/151f61ade66a30903d155250c4e4ced268fae570",
+                "reference": "151f61ade66a30903d155250c4e4ced268fae570",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.1.0"
             },
             "type": "library",
             "autoload": {
@@ -39,7 +42,7 @@
                     "email": "benschw@gmail.com"
                 }
             ],
-            "time": "2013-12-18 03:06:45"
+            "time": "2015-02-20 16:32:58"
         }
     ],
     "packages-dev": [
