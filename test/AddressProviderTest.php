@@ -2,12 +2,14 @@
 
 namespace Benschw\Consul;
 
+use Fliglio\Web\Uri;
+
 class AddressProviderTest extends \PHPUnit_Framework_TestCase {
 
 	public function testAddressProvider() {
 
 		// given
-		$expected = new Address("foo1.fliglio.com", 8001);
+		$expected = Uri::fromHostAndPort("foo1.fliglio.com", 8001);
 
 		$dns = StubResolver::createSingleResult();
 		$lb  = new ConsulLoadBalancer($dns, "foo");
@@ -20,13 +22,12 @@ class AddressProviderTest extends \PHPUnit_Framework_TestCase {
 		// then
 		$this->assertEquals($expected->getHost(), $found->getHost());
 		$this->assertEquals($expected->getPort(), $found->getPort());
-
 	}
 
 	public function testAddressProviderFactory() {
 
 		// given
-		$expected = new Address("foo1.fliglio.com", 8001);
+		$expected = Uri::fromHostAndPort("foo1.fliglio.com", 8001);
 
 		$stubResolver = StubResolver::createSingleResult();
 
@@ -40,7 +41,6 @@ class AddressProviderTest extends \PHPUnit_Framework_TestCase {
 		// then
 		$this->assertEquals($expected->getHost(), $found->getHost());
 		$this->assertEquals($expected->getPort(), $found->getPort());
-
 	}
 
 }

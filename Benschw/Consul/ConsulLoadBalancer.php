@@ -1,6 +1,8 @@
 <?php
 namespace Benschw\Consul;
 
+use Fliglio\Web\Uri;
+
 class ConsulLoadBalancer {
 
 	private $dns;
@@ -15,6 +17,7 @@ class ConsulLoadBalancer {
 		$addresses = $this->dns->resolve($this->name.self::$consulName, DNS_SRV);
 		// @TODO add load balancer strategy
 		$address = $addresses[0];
-		return new Address($address['target'], $address['port']);
+				
+		return Uri::fromHostAndPort($address['target'], $address['port']);
 	}
 }
