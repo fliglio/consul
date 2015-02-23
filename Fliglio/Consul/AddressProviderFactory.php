@@ -10,7 +10,7 @@ class AddressProviderFactory {
 	}
 
 	public function createConsulAddressProvider($name) {
-		$lb = new ConsulLoadBalancer($this->dns, new RandomLoadbalancerStrategy(), $name);
+		$lb = new ConsulLoadBalancer($this->dns, new RoundRobinLoadbalancerStrategy(), $name);
 		return new ConsulAddressProvider($lb);
 	}
 

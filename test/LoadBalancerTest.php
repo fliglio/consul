@@ -14,7 +14,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase {
 		$stubResolver = StubResolver::createSingleResult();
 
 		// when
-		$lb = new ConsulLoadBalancer($stubResolver, new RandomLoadbalancerStrategy(), "foo");
+		$lb = new ConsulLoadBalancer($stubResolver, new RoundRobinLoadBalancerStrategy(), "foo");
 
 		$found = $lb->next();
 
