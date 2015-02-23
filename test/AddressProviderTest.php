@@ -12,7 +12,7 @@ class AddressProviderTest extends \PHPUnit_Framework_TestCase {
 		$expected = Uri::fromHostAndPort("foo1.fliglio.com", 8001);
 
 		$dns = StubResolver::createSingleResult();
-		$lb  = new ConsulLoadBalancer($dns, "foo");
+		$lb  = new ConsulLoadBalancer($dns, new RandomLoadbalancerStrategy(), "foo");
 
 		// when
 		$ap = new ConsulAddressProvider($lb);
