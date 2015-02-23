@@ -19,7 +19,9 @@ class ConsulLoadBalancer {
 		$addresses = $this->dns->resolve($this->name.self::$consulName, DNS_SRV);
 
 		$address = $this->strategy->next($addresses);
-
+		if ($address === null) {
+			throw new AddressNotAvailableException('No address to provide');
+		}
 		return Uri::fromHostAndPort($address['target'], $address['port']);
 	}
 }

@@ -10,7 +10,6 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase {
 
 		// given
 		$expected = Uri::fromHostAndPort("foo1.fliglio.com", 8001);
-
 		$stubResolver = StubResolver::createSingleResult();
 
 		// when
@@ -23,5 +22,24 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($expected->getPort(), $found->getPort());
 
 	}
+
+
+	/**
+	 * @expectedException Fliglio\Consul\AddressNotAvailableException
+	 */
+	public function testEmptyResults() {
+
+		// given
+		$stubResolver = StubResolver::createEmptyResult();
+
+		// when
+		$lb = new ConsulLoadBalancer($stubResolver, new RoundRobinLoadBalancerStrategy(), "foo");
+
+		$found = $lb->next();
+
+		// then
+		// exception thrown
+	}
+
 
 }
