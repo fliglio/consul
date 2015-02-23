@@ -2,6 +2,8 @@
 
 namespace Fliglio\Consul;
 
+use Fliglio\Web\Uri;
+
 class StubResolver extends DnsResolver {
 	public $results;
 	public function __construct(array $results) {
@@ -18,38 +20,17 @@ class StubResolver extends DnsResolver {
 	}
 
 	public static function createSingleResult() {
-		$stubSrv = array(array(
-				'host'   => 'foo.service.consul',
-				'class'  => 'IN',
-				'ttl'    => 14382,
-				'type'   => 'SRV',
-				'pri'    => 1,
-				'weight' => 1,
-				'port'   => 8001,
-				'target' => 'foo1.fliglio.com',
-			));
+		$stubSrv = array(
+			Uri::fromHostAndPort("foo1.fliglio.com", 8001)
+		);
 		return new self($stubSrv);
 	}
 	public static function createDoubleResult() {
-		$stubSrv = array(array(
-				'host'   => 'foo.service.consul',
-				'class'  => 'IN',
-				'ttl'    => 14382,
-				'type'   => 'SRV',
-				'pri'    => 1,
-				'weight' => 1,
-				'port'   => 8001,
-				'target' => 'foo1.fliglio.com',
-			),array(
-				'host'   => 'foo.service.consul',
-				'class'  => 'IN',
-				'ttl'    => 14382,
-				'type'   => 'SRV',
-				'pri'    => 1,
-				'weight' => 1,
-				'port'   => 8002,
-				'target' => 'foo2.fliglio.com',
-			));
+		$stubSrv = array(
+			Uri::fromHostAndPort("foo1.fliglio.com", 8001),
+			Uri::fromHostAndPort("foo2.fliglio.com", 8002)
+		);
+
 		return new self($stubSrv);
 	}
 }

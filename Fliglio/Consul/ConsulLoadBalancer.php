@@ -1,7 +1,6 @@
 <?php
 namespace Fliglio\Consul;
 
-use Fliglio\Web\Uri;
 
 class ConsulLoadBalancer {
 
@@ -22,6 +21,6 @@ class ConsulLoadBalancer {
 		if ($address === null) {
 			throw new AddressNotAvailableException('No address to provide');
 		}
-		return Uri::fromHostAndPort($address['target'], $address['port']);
+		return $address;
 	}
 }

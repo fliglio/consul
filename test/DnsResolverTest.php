@@ -3,31 +3,18 @@
 namespace Fliglio\Consul;
 
 
+use Fliglio\Web\Uri;
 
 class DnsResolverTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testSRVLookup() {
 		// given
-		$expected = array(array(
-			'host' => 'foo.service.fliglio.com',
-			'class' => 'IN',
-			'ttl' => 14382,
-			'type' => 'SRV',
-			'pri' => 1,
-			'weight' => 1,
-			'port' => 8001,
-			'target' => 'foo1.fliglio.com'
-		), array(
-			'host' => 'foo.service.fliglio.com',
-			'class' => 'IN',
-			'ttl' => 14382,
-			'type' => 'SRV',
-			'pri' => 1,
-			'weight' => 1,
-			'port' => 8002,
-			'target' => 'foo2.fliglio.com'
-		));
+		$expected = array(
+			Uri::fromHostAndPort("foo1.fliglio.com", 8001),
+			Uri::fromHostAndPort("foo2.fliglio.com", 8002)
+		);
+
 
 		// when
 		$resv = new DnsResolver();
@@ -35,12 +22,12 @@ class DnsResolverTest extends \PHPUnit_Framework_TestCase {
 
 		// sort by target since order isn't deterministic
 		usort($found, function($a, $b) {
-			return strcmp($a['target'], $b['target']);
+			return strcmp($a->getHost(), $b->getHost());
 		});
 
 		// then
-		$this->assertEquals($expected[0]['target'], $found[0]['target']);
-		$this->assertEquals($expected[1]['target'], $found[1]['target']);
+		$this->assertEquals($expected[0]->getHost(), $found[0]->getHost());
+		$this->assertEquals($expected[1]->getHost(), $found[1]->getHost());
 		$this->assertEquals(count($expected), count($found));
 
 	}

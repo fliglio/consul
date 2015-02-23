@@ -8,10 +8,7 @@ class RoundRobinLoadBalancerStrategy implements LoadbalancerStrategy {
 	private $idx = null;
 
 	public function next(array $addresses) {
-		usort($addresses, function($a, $b) {
-			return strcmp($a['target'], $b['target']);
-		});
-		$this->addresses = $addresses;
+		$this->addresses = $this->sortAddresses($addresses);
 
 		$this->incrementIdx();
 
@@ -24,6 +21,13 @@ class RoundRobinLoadBalancerStrategy implements LoadbalancerStrategy {
 		} else {
 			return null;
 		}
+	}
+
+	private function sortAddresses(array $addresses) {
+		usort($addresses, function($a, $b) {
+			return strcmp($a->getHost(), $b->getHost());
+		});
+		return $addresses;
 	}
 
 	private function incrementIdx() {
