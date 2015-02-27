@@ -1,7 +1,7 @@
 <?php
 namespace Fliglio\Consul;
 
-use Fliglio\Web\Uri;
+use Fliglio\Web\Url;
 
 class DnsResolver {
 	
@@ -12,7 +12,7 @@ class DnsResolver {
  		$record = dns_get_record($name, $type);
  		$mapped = array();
  		foreach ($record as $address) {
- 			$mapped[] = Uri::fromHostAndPort($address['target'], $address['port']);
+ 			$mapped[] = Url::fromHostAndPort($address['target'], $address['port']);
  		}
  		return $mapped;
 	}
