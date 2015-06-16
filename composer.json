@@ -8,6 +8,7 @@
             "email": "benschw@gmail.com"
         }
     ],
+    "minimum-stability" : "dev",
     "require": {
         "php": ">=5.3",
         "fliglio/web": "dev-master"
