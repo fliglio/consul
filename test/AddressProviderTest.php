@@ -2,14 +2,14 @@
 
 namespace Fliglio\Consul;
 
-use Fliglio\Web\Uri;
+use Fliglio\Web\Url;
 
 class AddressProviderTest extends \PHPUnit_Framework_TestCase {
 
 	public function testAddressProvider() {
 
 		// given
-		$expected = Uri::fromHostAndPort("foo1.fliglio.com", 8001);
+		$expected = Url::fromHostAndPort("foo1.fliglio.com", 8001);
 
 		$dns = StubResolver::createSingleResult();
 		$lb  = new ConsulLoadBalancer($dns, new RoundRobinLoadBalancerStrategy(), "foo");
@@ -27,7 +27,7 @@ class AddressProviderTest extends \PHPUnit_Framework_TestCase {
 	public function testAddressProviderFactory() {
 
 		// given
-		$expected = Uri::fromHostAndPort("foo1.fliglio.com", 8001);
+		$expected = Url::fromHostAndPort("foo1.fliglio.com", 8001);
 
 		$stubResolver = StubResolver::createSingleResult();
 

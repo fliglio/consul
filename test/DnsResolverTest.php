@@ -3,7 +3,7 @@
 namespace Fliglio\Consul;
 
 
-use Fliglio\Web\Uri;
+use Fliglio\Web\Url;
 
 class DnsResolverTest extends \PHPUnit_Framework_TestCase {
 
@@ -11,8 +11,8 @@ class DnsResolverTest extends \PHPUnit_Framework_TestCase {
 	public function testSRVLookup() {
 		// given
 		$expected = array(
-			Uri::fromHostAndPort("foo1.fliglio.com", 8001),
-			Uri::fromHostAndPort("foo2.fliglio.com", 8002)
+			Url::fromHostAndPort("foo1.fliglio.com", 8001),
+			Url::fromHostAndPort("foo2.fliglio.com", 8002)
 		);
 
 

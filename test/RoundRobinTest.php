@@ -2,7 +2,7 @@
 
 namespace Fliglio\Consul;
 
-use Fliglio\Web\Uri;
+use Fliglio\Web\Url;
 
 class RoundRobinTest extends \PHPUnit_Framework_TestCase {
 
@@ -10,8 +10,8 @@ class RoundRobinTest extends \PHPUnit_Framework_TestCase {
 
 		// given
 		$expected = array(
-			Uri::fromHostAndPort("foo1.fliglio.com", 8001),
-			Uri::fromHostAndPort("foo2.fliglio.com", 8002)
+			Url::fromHostAndPort("foo1.fliglio.com", 8001),
+			Url::fromHostAndPort("foo2.fliglio.com", 8002)
 		);
 
 		$stubResolver = StubResolver::createDoubleResult();
