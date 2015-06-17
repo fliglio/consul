@@ -2,14 +2,14 @@
 
 namespace Fliglio\Consul;
 
-use Fliglio\Web\Uri;
+use Fliglio\Web\Url;
 
 class LoadBalancerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testLoadBalancerLookup() {
 
 		// given
-		$expected = Uri::fromHostAndPort("foo1.fliglio.com", 8001);
+		$expected = Url::fromHostAndPort("foo1.fliglio.com", 8001);
 		$stubResolver = StubResolver::createSingleResult();
 
 		// when

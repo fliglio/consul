@@ -2,7 +2,7 @@
 
 namespace Fliglio\Consul;
 
-use Fliglio\Web\Uri;
+use Fliglio\Web\Url;
 
 class StubResolver extends DnsResolver {
 	public $results;
@@ -21,14 +21,14 @@ class StubResolver extends DnsResolver {
 
 	public static function createSingleResult() {
 		$stubSrv = array(
-			Uri::fromHostAndPort("foo1.fliglio.com", 8001)
+			Url::fromHostAndPort("foo1.fliglio.com", 8001)
 		);
 		return new self($stubSrv);
 	}
 	public static function createDoubleResult() {
 		$stubSrv = array(
-			Uri::fromHostAndPort("foo1.fliglio.com", 8001),
-			Uri::fromHostAndPort("foo2.fliglio.com", 8002)
+			Url::fromHostAndPort("foo1.fliglio.com", 8001),
+			Url::fromHostAndPort("foo2.fliglio.com", 8002)
 		);
 
 		return new self($stubSrv);
