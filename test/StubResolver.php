@@ -4,13 +4,13 @@ namespace Fliglio\Consul;
 
 use Fliglio\Web\Url;
 
-class StubResolver extends DnsResolver {
+class StubResolver implements Resolver {
 	public $results;
 	public function __construct(array $results) {
 		$this->results = $results;
 	}
 
-	public function resolve($host, $type) {
+	public function resolve($host) {
 		return $this->results;
 	}
 

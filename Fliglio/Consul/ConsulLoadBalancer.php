@@ -6,16 +6,15 @@ class ConsulLoadBalancer {
 
 	private $dns;
 	private $strategy;
-	private static $consulName = ".service.consul";
 
-	public function __construct(DnsResolver $dns, LoadbalancerStrategy $strategy, $name) {
+	public function __construct(Resolver $dns, LoadbalancerStrategy $strategy, $name) {
 		$this->dns  = $dns;
 		$this->strategy = $strategy;
 		$this->name = $name;
 	}
 
 	public function next() {
-		$addresses = $this->dns->resolve($this->name.self::$consulName, DNS_SRV);
+		$addresses = $this->dns->resolve($this->name, DNS_SRV);
 
 		$address = $this->strategy->next($addresses);
 		if ($address === null) {
