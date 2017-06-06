@@ -17,8 +17,8 @@ class DnsResolverTest extends \PHPUnit_Framework_TestCase {
 
 
 		// when
-		$resv = new DnsResolver();
-		$found = $resv->resolve("foo.service.fliglio.com", DNS_SRV);
+		$resv = new DnsResolver(".fliglio.com");
+		$found = $resv->resolve("foo");
 
 		// sort by target since order isn't deterministic
 		usort($found, function($a, $b) {
