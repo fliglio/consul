@@ -5,16 +5,18 @@ use Fliglio\Web\Url;
 
 class ApiResolver implements Resolver {
 
+	private $addr;
 	private $http;
 	private $opts;
 
-	public function __construct(\GuzzleHttp\Client $http, $opts=[]) {
+	public function __construct($addr, \GuzzleHttp\Client $http, $opts=[]) {
+		$this->addr = $addr;
 		$this->http = $http;
 		$this->opts = $opts;
 	}
 	
 	public function resolve($name) {
-		$uri = $this->opts['ConsulAddr'] . '/v1/catalog/service/' . $name;
+		$uri = $this->addr . '/v1/catalog/service/' . $name;
 
 		$request = $this->http->createRequest("GET", $uri);
 		$response = $this->http->send($request);

@@ -15,9 +15,7 @@ class ApiAddressProviderFactory {
 				'http_errors' => false,
 			];
 			$http = new \GuzzleHttp\Client($options);
-			$resolver = new ApiResolver($http, [
-				'ConsulAddr' => $baseUri,
-			]);
+			$resolver = new ApiResolver($baseUri, $http, []);
 		}
 		$this->resolver = $resolver;
 	}
