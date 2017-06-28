@@ -15,7 +15,7 @@ class ApiAddressProviderFactory {
 				'http_errors' => false,
 			];
 			$http = new \GuzzleHttp\Client($options);
-			$resolver = new ApiResolver($baseUri, $http, []);
+			$resolver = new ApiResolver($baseUri, $http, ['Stale' => true]);
 		}
 		$this->resolver = $resolver;
 	}

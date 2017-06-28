@@ -17,7 +17,7 @@ class ApiResolver implements Resolver {
 	
 	public function resolve($name) {
 		$uri = $this->addr . '/v1/catalog/service/' . $name;
-		if (isset($this->opts['Stale'])) {
+		if (isset($this->opts['Stale']) && $this->opts['Stale']) {
 			$uri .= '?stale';
 		}
 		
