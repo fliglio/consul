@@ -33,6 +33,8 @@ class ApiResolver implements Resolver {
 
 		$mapped = array();
 		foreach ($data as $address) {
+			// if ServiceAddress is explicitly registered use it,
+			// otherwise use Address (machine node ip for the service)
 			$url = Url::fromHostAndPort(
 				($address['ServiceAddress'] !== "") ? $address['ServiceAddress'] : $address['Address'],
 				$address['ServicePort']
