@@ -14,13 +14,13 @@ class ApiResolver implements Resolver {
 		$this->http = $http;
 		$this->opts = $opts;
 	}
-	
+
 	public function resolve($name) {
 		$uri = $this->addr . '/v1/catalog/service/' . $name;
 		if (isset($this->opts['Stale']) && $this->opts['Stale']) {
 			$uri .= '?stale';
 		}
-		
+
 		$request = $this->http->createRequest("GET", $uri);
 		$response = $this->http->send($request);
 		$status = $response->getStatusCode();
@@ -33,8 +33,11 @@ class ApiResolver implements Resolver {
 
 		$mapped = array();
 		foreach ($data as $address) {
-			$url = Url::fromHostAndPort($address['ServiceAddress'], $address['ServicePort']);
-			
+			$url = Url::fromHostAndPort(
+				($address['ServiceAddress'] !== "") ? $address['ServiceAddress'] : $address['Address'],
+				$address['ServicePort']
+			);
+
 			// if "Tags" option is set, only consider instances with matching tags
 			if (isset($this->opts['Tags'])) {
 				$fail = false;
@@ -54,4 +57,3 @@ class ApiResolver implements Resolver {
 	}
 
 }
-
