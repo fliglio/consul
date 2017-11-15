@@ -16,8 +16,10 @@ class ApiResolver implements Resolver {
 	}
 
 	public function resolve($name) {
-		$uri = $this->addr . '/v1/catalog/service/' . $name . '?passing=true';
-
+		$uri = $this->addr . '/v1/health/service/' . $name . '?passing=true';
+		if (isset($this->opts['Stale']) && $this->opts['Stale']) {
+			$uri .= '&stale';
+		}
 		$request = $this->http->createRequest("GET", $uri);
 		$response = $this->http->send($request);
 		$status = $response->getStatusCode();
