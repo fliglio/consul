@@ -16,10 +16,7 @@ class ApiResolver implements Resolver {
 	}
 
 	public function resolve($name) {
-		$uri = $this->addr . '/v1/catalog/service/' . $name;
-		if (isset($this->opts['Stale']) && $this->opts['Stale']) {
-			$uri .= '?stale';
-		}
+		$uri = $this->addr . '/v1/catalog/service/' . $name . '?passing=true';
 
 		$request = $this->http->createRequest("GET", $uri);
 		$response = $this->http->send($request);
@@ -32,19 +29,21 @@ class ApiResolver implements Resolver {
 		$data = json_decode($response->getBody(), true);
 
 		$mapped = array();
-		foreach ($data as $address) {
+		foreach ($data as $node) {
 			// if ServiceAddress is explicitly registered use it,
 			// otherwise use Address (machine node ip for the service)
-			$url = Url::fromHostAndPort(
-				($address['ServiceAddress'] !== "") ? $address['ServiceAddress'] : $address['Address'],
-				$address['ServicePort']
-			);
+			if (isset($node['Service']['Address']) && $node['Service']['Address'] !== "") {
+				$addr = $node['Service']['Address'];
+			} else {
+				$addr = $node['Node']['Address'];
+			}
+			$url = Url::fromHostAndPort($addr,$node['Service']['Port']);
 
 			// if "Tags" option is set, only consider instances with matching tags
 			if (isset($this->opts['Tags'])) {
 				$fail = false;
 				foreach ($this->opts['Tags'] as $tag) {
-					if (!in_array($tag, $address['ServiceTags'])) {
+					if (!in_array($tag, $node['Service']['Tags'])) {
 						$fail = true;
 					}
 				}
