@@ -46,7 +46,8 @@ class AddressProviderTest extends \PHPUnit_Framework_TestCase {
 
     public function testHostPrefixAddressProviderFactory() {
         // given
-        $alb = new HostPrefixAddressProviderFactory('us');
+        $resolver = new PostFixResolver('us');
+        $alb = new AddressProviderFactory($resolver);
 
         // when
         $provider = $alb->create('httpstat');
@@ -75,7 +76,8 @@ class AddressProviderTest extends \PHPUnit_Framework_TestCase {
 
     public function testHostPrefixAddressProviderFactory_shouldSetSchemeHttp() {
         // given
-        $alb = new HostPrefixAddressProviderFactory('us', 80);
+        $resolver = new PostFixResolver('us', 80);
+        $alb = new AddressProviderFactory($resolver);
 
         // when
         $provider = $alb->create('httpstat');
