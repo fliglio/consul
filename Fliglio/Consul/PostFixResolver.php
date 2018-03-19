@@ -22,7 +22,6 @@ class PostFixResolver implements Resolver {
             ->port($this->port)
             ->scheme($this->port == 443 ? 'https' : 'http')
             ->host($host);
-//        return [$urlBuilder->build()];
-        return new StaticAddressProvider($urlBuilder->build());
+        return [$urlBuilder->build()];
     }
 }

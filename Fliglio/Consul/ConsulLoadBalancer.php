@@ -15,8 +15,7 @@ class ConsulLoadBalancer {
 	}
 
 	public function next() {
-        /** THIS APPEARS WRONG, extra DNS_SRV arg */
-		$addresses = $this->dns->resolve($this->name, DNS_SRV);
+		$addresses = $this->dns->resolve($this->name);
 
 		$address = $this->strategy->next($addresses);
 		if ($address === null) {
