@@ -3,14 +3,18 @@ namespace Fliglio\Consul;
 
 class AddressProviderFactory {
 
-	private $dns;
+	private $resolver;
 
 	public function __construct(Resolver $dns = null) {
-		$this->dns = $dns != null ? $dns : new DnsResolver(".service.consul");
+		$this->resolver = $dns != null ? $dns : new DnsResolver(".service.consul");
 	}
 
 	public function createConsulAddressProvider($name) {
-		$lb = new ConsulLoadBalancer($this->dns, new RoundRobinLoadBalancerStrategy(), $name);
-		return new ConsulAddressProvider($lb);
+        return $this->create($name);
 	}
+
+	public function create($name) {
+        $lb = new ConsulLoadBalancer($this->resolver, new RoundRobinLoadBalancerStrategy(), $name);
+        return new ConsulAddressProvider($lb);
+    }
 }

@@ -2,6 +2,13 @@
 
 namespace Fliglio\Consul;
 
+use Fliglio\Web\Url;
+
 interface Resolver {
-	public function resolve($name);
+
+    /**
+     * @param $name
+     * @return Url[]
+     */
+    public function resolve($name);
 }

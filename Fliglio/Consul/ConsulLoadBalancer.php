@@ -4,6 +4,7 @@ namespace Fliglio\Consul;
 
 class ConsulLoadBalancer {
 
+    /** @var Resolver  */
 	private $dns;
 	private $strategy;
 
@@ -14,7 +15,7 @@ class ConsulLoadBalancer {
 	}
 
 	public function next() {
-		$addresses = $this->dns->resolve($this->name, DNS_SRV);
+		$addresses = $this->dns->resolve($this->name);
 
 		$address = $this->strategy->next($addresses);
 		if ($address === null) {
