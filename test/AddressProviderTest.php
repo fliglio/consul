@@ -44,7 +44,7 @@ class AddressProviderTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($expected->getPort(), $found->getPort());
 	}
 
-    public function testAlbAddressProviderFactory() {
+    public function testHostPrefixAddressProviderFactory() {
         // given
         $alb = new HostPrefixAddressProviderFactory('us');
 
@@ -71,7 +71,7 @@ class AddressProviderTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('https://httpstat.us/200', $resp->getEffectiveUrl());
     }
 
-    public function testAlbAddressProviderFactory_shouldSetSchemeHttp() {
+    public function testHostPrefixAddressProviderFactory_shouldSetSchemeHttp() {
         // given
         $alb = new HostPrefixAddressProviderFactory('google.com', 80);
 
