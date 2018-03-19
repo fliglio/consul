@@ -3,6 +3,7 @@
 namespace Fliglio\Consul;
 
 use Fliglio\Web\Url;
+use GuzzleHttp\Client;
 
 class AddressProviderTest extends \PHPUnit_Framework_TestCase {
 
@@ -42,5 +43,63 @@ class AddressProviderTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($expected->getHost(), $found->getHost());
 		$this->assertEquals($expected->getPort(), $found->getPort());
 	}
+
+    public function testHostPrefixAddressProviderFactory() {
+        // given
+        $resolver = new PostFixResolver('us');
+        $alb = new AddressProviderFactory($resolver);
+
+        // when
+        $provider = $alb->create('httpstat');
+
+        // then
+        $addr = $provider->getAddress();
+        $this->assertEquals([
+            'host' => 'httpstat.us',
+            'port' => 443,
+            'scheme' => 'https'
+        ], [
+            'host' => $addr->getHost(),
+            'port' => $addr->getPort(),
+            'scheme' => $addr->getScheme()
+        ]);
+
+        // and
+        $http = new Client([
+            'base_url' => $addr->__tostring(),
+            'allow_redirects' => false
+        ]);
+        $resp = $http->get('/200');
+        $this->assertEquals('200 OK', $resp->getBody()->getContents());
+        $this->assertEquals('https://httpstat.us/200', $resp->getEffectiveUrl());
+    }
+
+    public function testHostPrefixAddressProviderFactory_shouldSetSchemeHttp() {
+        // given
+        $resolver = new PostFixResolver('us', 80);
+        $alb = new AddressProviderFactory($resolver);
+
+        // when
+        $provider = $alb->create('httpstat');
+
+        // then
+        $addr = $provider->getAddress();
+        $this->assertEquals([
+            'host' => 'httpstat.us',
+            'port' => 80,
+            'scheme' => 'http'
+        ], [
+            'host' => $addr->getHost(),
+            'port' => $addr->getPort(),
+            'scheme' => $addr->getScheme()
+        ]);
+
+        // and
+        $http = new Client([
+            'base_url' => $addr->__tostring()
+        ]);
+        $resp = $http->get('/200');
+        $this->assertEquals('http://httpstat.us/200', $resp->getEffectiveUrl());
+    }
 
 }
