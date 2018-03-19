@@ -55,10 +55,12 @@ class AddressProviderTest extends \PHPUnit_Framework_TestCase {
         $addr = $provider->getAddress();
         $this->assertEquals([
             'host' => 'httpstat.us',
-            'port' => 443
+            'port' => 443,
+            'scheme' => 'https'
         ], [
             'host' => $addr->getHost(),
-            'port' => $addr->getPort()
+            'port' => $addr->getPort(),
+            'scheme' => $addr->getScheme()
         ]);
 
         // and
@@ -73,27 +75,29 @@ class AddressProviderTest extends \PHPUnit_Framework_TestCase {
 
     public function testHostPrefixAddressProviderFactory_shouldSetSchemeHttp() {
         // given
-        $alb = new HostPrefixAddressProviderFactory('google.com', 80);
+        $alb = new HostPrefixAddressProviderFactory('us', 80);
 
         // when
-        $provider = $alb->create('www');
+        $provider = $alb->create('httpstat');
 
         // then
         $addr = $provider->getAddress();
         $this->assertEquals([
-            'host' => 'www.google.com',
-            'port' => 80
+            'host' => 'httpstat.us',
+            'port' => 80,
+            'scheme' => 'http'
         ], [
             'host' => $addr->getHost(),
-            'port' => $addr->getPort()
+            'port' => $addr->getPort(),
+            'scheme' => $addr->getScheme()
         ]);
 
         // and
         $http = new Client([
             'base_url' => $addr->__tostring()
         ]);
-        $resp = $http->get('/');
-        $this->assertEquals('http://www.google.com/', $resp->getEffectiveUrl());
+        $resp = $http->get('/200');
+        $this->assertEquals('http://httpstat.us/200', $resp->getEffectiveUrl());
     }
 
 }
