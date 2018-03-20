@@ -6,18 +6,18 @@ namespace Fliglio\Consul;
 
 use Fliglio\Web\UrlBuilder;
 
-class PostFixResolver implements Resolver {
+class HostTplAddressResolver implements Resolver {
 
-    private $hostPostFix;
+    private $hostTemplate;
     private $port;
 
-    public function __construct($hostPostFix, $port = 443) {
-        $this->hostPostFix = $hostPostFix;
+    public function __construct($hostTemplate, $port = 443) {
+        $this->hostTemplate = $hostTemplate;
         $this->port = $port;
     }
 
     public function resolve($name) {
-        $host = str_replace('{serviceKey}', $name, $this->hostPostFix);
+        $host = str_replace('{serviceKey}', $name, $this->hostTemplate);
         $urlBuilder = (new UrlBuilder)
             ->port($this->port)
             ->scheme($this->port == 443 ? 'https' : 'http')
