@@ -17,7 +17,7 @@ class PostFixResolver implements Resolver {
     }
 
     public function resolve($name) {
-        $host = sprintf('%s.%s', $name, $this->hostPostFix);
+        $host = str_replace('{serviceKey}', $name, $this->hostPostFix);
         $urlBuilder = (new UrlBuilder)
             ->port($this->port)
             ->scheme($this->port == 443 ? 'https' : 'http')
