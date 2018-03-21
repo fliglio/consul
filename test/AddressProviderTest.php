@@ -46,7 +46,7 @@ class AddressProviderTest extends \PHPUnit_Framework_TestCase {
 
     public function testHostPrefixAddressProviderFactory() {
         // given
-        $resolver = new PostFixResolver('us');
+        $resolver = new HostTplAddressResolver('{serviceKey}.us');
         $alb = new AddressProviderFactory($resolver);
 
         // when
@@ -76,7 +76,7 @@ class AddressProviderTest extends \PHPUnit_Framework_TestCase {
 
     public function testHostPrefixAddressProviderFactory_shouldSetSchemeHttp() {
         // given
-        $resolver = new PostFixResolver('us', 80);
+        $resolver = new HostTplAddressResolver('{serviceKey}.us', 80);
         $alb = new AddressProviderFactory($resolver);
 
         // when
