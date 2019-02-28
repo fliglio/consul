@@ -19,7 +19,7 @@ class ConsulLoadBalancer {
 
 		$address = $this->strategy->next($addresses);
 		if ($address === null) {
-			throw new AddressNotAvailableException('No address to provide');
+			throw new AddressNotAvailableException('No address to provide for ' . $this->name);
 		}
 		return $address;
 	}
