@@ -70,6 +70,7 @@ class AddressProviderTest extends \PHPUnit_Framework_TestCase {
             'allow_redirects' => false
         ]);
         $resp = $http->get('/200');
+        echo '<pre>'; print_r($resp->getBody()); exit;
         $this->assertEquals('200 OK', $resp->getBody()->getContents());
         $this->assertEquals('https://httpstat.us/200', $resp->getEffectiveUrl());
     }
