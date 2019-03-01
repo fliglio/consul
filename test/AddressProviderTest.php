@@ -63,15 +63,6 @@ class AddressProviderTest extends \PHPUnit_Framework_TestCase {
             'port' => $addr->getPort(),
             'scheme' => $addr->getScheme()
         ]);
-
-        // and
-        $http = new Client([
-            'base_url' => $addr->__tostring(),
-            'allow_redirects' => false
-        ]);
-        $resp = $http->get('/200');
-        $this->assertEquals('200 OK', $resp->getBody()->getContents());
-        $this->assertEquals('https://httpstat.us/200', $resp->getEffectiveUrl());
     }
 
     public function testHostPrefixAddressProviderFactory_shouldSetSchemeHttp() {
@@ -93,13 +84,6 @@ class AddressProviderTest extends \PHPUnit_Framework_TestCase {
             'port' => $addr->getPort(),
             'scheme' => $addr->getScheme()
         ]);
-
-        // and
-        $http = new Client([
-            'base_url' => $addr->__tostring()
-        ]);
-        $resp = $http->get('/200');
-        $this->assertEquals('http://httpstat.us/200', $resp->getEffectiveUrl());
     }
 
 }
