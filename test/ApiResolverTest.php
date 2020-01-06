@@ -2,8 +2,6 @@
 
 namespace Fliglio\Consul;
 
-
-use Fliglio\Web\Url;
 use GuzzleHttp\Subscriber\Mock;
 use GuzzleHttp\Message\Response;
 use GuzzleHttp\Stream\Stream;
