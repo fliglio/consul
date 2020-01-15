@@ -1,4 +1,5 @@
 <?php
+
 namespace Fliglio\Consul;
 
 use Fliglio\Web\Url;

@@ -1,6 +1,6 @@
 <?php
-namespace Fliglio\Consul;
 
+namespace Fliglio\Consul;
 
 class RoundRobinLoadBalancerStrategy implements LoadbalancerStrategy {
 
