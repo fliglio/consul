@@ -41,19 +41,6 @@ class ApiAddressProviderFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertContains($url->getHost(), [$addr1, $addr2]);
 	}
 
-	/** @expectedException Fliglio\Consul\AddressNotAvailableException */
-	public function testConstruct_withoutResolver_shouldFailWithInvalidName() {
-		// given
-		$factory = new ApiAddressProviderFactory();
-
-		// when
-		$provider = $factory->create("test");
-		$provider->getAddress();
-		
-		// then
-		$this->assertTrue(false);
-	}
-
 	public function testConstruct_withoutResolver() {
 		// given
 		$addr1 = "10.0.0.1";
