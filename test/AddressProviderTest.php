@@ -3,7 +3,6 @@
 namespace Fliglio\Consul;
 
 use Fliglio\Web\Url;
-use GuzzleHttp\Client;
 
 class AddressProviderTest extends \PHPUnit_Framework_TestCase {
 

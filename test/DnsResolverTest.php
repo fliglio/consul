@@ -2,7 +2,6 @@
 
 namespace Fliglio\Consul;
 
-
 use Fliglio\Web\Url;
 
 class DnsResolverTest extends \PHPUnit_Framework_TestCase {
